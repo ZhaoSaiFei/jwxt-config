@@ -1,0 +1,36 @@
+server:
+  port: 56710
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://192.168.5.240:3306/kytms
+    url: jdbc:mysql://localhost:3306/kytms
+    username: root
+    password: root
+
+  application:
+    name: jwxt-business   #指定的服务名
+
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+  mapper-locations: classpath:com/kytms/*/mapper/*.xml
+
+
+#首页显示的微服务名默认为：机器主机名:应用名称:应用端口，
+#也就是：${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${server.port}}
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:56798/eureka/,http://localhost:56799/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: system8083 #在注册中心页面显示的微服务名
